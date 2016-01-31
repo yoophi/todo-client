@@ -10,6 +10,7 @@
  */
 angular
     .module('todoApp', [
+        'oauth',
         'ngAnimate',
         'ngCookies',
         'ngResource',
@@ -33,6 +34,11 @@ angular
                 templateUrl: 'views/contacts',
                 controller: 'ContactsCtrl',
                 controllerAs: 'contacts'
+            })
+            .when('/auth', {
+                templateUrl: 'views/auth',
+                controller: 'AuthCtrl',
+                controllerAs: 'auth'
             })
             .otherwise({
                 redirectTo: '/'
