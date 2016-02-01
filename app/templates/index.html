@@ -42,7 +42,7 @@
             <ul class="nav navbar-nav">
               <li class="active"><a href="{{url_for('client')}}">Home</a></li>
               <li><a ng-href="{{url_for('client', path='about')}}">About</a></li>
-              <li><a ng-href="{{url_for('client', path='contacts')}}">Contact</a></li>
+              <li><a ng-href="{{url_for('client', path='todo')}}">Todo</a></li>
               <li><a ng-href="{{url_for('client', path='auth')}}">Auth</a></li>
             </ul>
           </div>
@@ -92,8 +92,9 @@
     <script src="{{url_for('static', filename='scripts/app.js')}}"></script>
     <script src="{{url_for('static', filename='scripts/controllers/main.js')}}"></script>
     <script src="{{url_for('static', filename='scripts/controllers/about.js')}}"></script>
-    <script src="{{url_for('static', filename='scripts/controllers/contacts.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/controllers/todo.js')}}"></script>
     <script src="{{url_for('static', filename='scripts/controllers/auth.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/services/todoService.js')}}"></script>
     <!-- endbuild -->
 </body>
 </html>

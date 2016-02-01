@@ -8,7 +8,12 @@
  * Controller of the todoApp
  */
 angular.module('todoApp')
-    .controller('AuthCtrl', function ($scope, $rootScope, $timeout, AccessToken) {
+    .controller('AuthCtrl', function ($scope, $rootScope, Storage, $timeout, AccessToken) {
+        var storage_token = Storage.get('token');
+        if (storage_token) {
+            $scope.accessToken = storage_token.access_token;
+        }
+
         $scope.$on('oauth:login', function (event, token) {
             $rootScope.accessToken = token.access_token;
             $scope.accessToken = token.access_token;

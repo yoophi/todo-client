@@ -30,10 +30,10 @@ angular
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
             })
-            .when('/contacts', {
-                templateUrl: 'views/contacts',
-                controller: 'ContactsCtrl',
-                controllerAs: 'contacts'
+            .when('/todo', {
+                templateUrl: 'views/todo',
+                controller: 'TodoCtrl',
+                controllerAs: 'todoList'
             })
             .when('/auth', {
                 templateUrl: 'views/auth',
