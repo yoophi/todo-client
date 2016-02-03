@@ -8,9 +8,14 @@
  * Service in the todoApp.
  */
 angular.module('todoApp')
-    .service('TodoService', function () {
+    .service('TodoService', function ($http, Storage) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var service = this;
+
+        var storage_token = Storage.get('token');
+        if (storage_token) {
+            console.log(storage_token.access_token);
+        }
 
         service.todos = [
             {text: 'learn angular', done: true},
@@ -20,7 +25,11 @@ angular.module('todoApp')
         ];
 
         service.getList = function () {
+            $http.get('http://localhost:5000/api/v1.0/todos').success(function (response) {
+                console.log(response.todos);
+            });
             return service.todos;
+
         };
 
         service.create = function (obj) {
@@ -46,3 +55,32 @@ angular.module('todoApp')
             });
         };
     });
+
+//profileClient.factory('Profile', ['$http', 'AccessToken', '$rootScope', function($http, AccessToken, $rootScope) {
+//  var service = {};
+//  var profile;
+//
+//  service.find = function(uri) {
+//    var promise = $http.get(uri, { headers: headers() });
+//    promise.success(function(response) {
+//        profile = response;
+//        $rootScope.$broadcast('oauth:profile', profile);
+//      });
+//    return promise;
+//  };
+//
+//  service.get = function() {
+//    return profile;
+//  };
+//
+//  service.set = function(resource) {
+//    profile = resource;
+//    return profile;
+//  };
+//
+//  var headers = function() {
+//    return { Authorization: 'Bearer ' + AccessToken.get().access_token };
+//  };
+//
+//  return service;
+//}]);
