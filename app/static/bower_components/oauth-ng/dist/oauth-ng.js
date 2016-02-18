@@ -694,7 +694,7 @@ directives.directive('oauth', [
         responseType: '@',  // (optional) response type, defaults to token (use 'token' for implicit flow and 'code' for authorization code flow
         scope: '@',         // (optional) scope
         profileUri: '@',    // (optional) user profile uri (e.g http://example.com/me)
-        template: '@',      // (optional) template to render (e.g bower_components/oauth-ng/dist/views/templates/oauth_default.html)
+        template: '@',      // (optional) template to render (e.g bower_components/oauth-ng/dist/views/templates/default.html)
         text: '@',          // (optional) login text
         authorizePath: '@', // (optional) authorization url
         state: '@',         // (optional) An arbitrary unique string created by your app to guard against Cross-site Request Forgery
@@ -728,7 +728,7 @@ directives.directive('oauth', [
       var initAttributes = function() {
         scope.authorizePath = scope.authorizePath || '/oauth/authorize';
         scope.tokenPath     = scope.tokenPath     || '/oauth/token';
-        scope.template      = scope.template      || 'bower_components/oauth-ng/dist/views/templates/oauth_default.html';
+        scope.template      = scope.template      || 'bower_components/oauth-ng/dist/views/templates/default.html';
         scope.responseType  = scope.responseType  || 'token';
         scope.text          = scope.text          || 'Sign In';
         scope.state         = scope.state         || undefined;

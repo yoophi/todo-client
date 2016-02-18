@@ -5,12 +5,10 @@
        redirect-uri="http://localhost:9001/client/auth"
        profile-uri="http://localhost:5000/api/v1.0/me"
        scope="email"
-       template="{{ url_for('client_views', path='oauth_default') }}"
+       template="/static/views/oauth/default.html"
 >
 </oauth>
 
-{% raw -%}
 <div class="token" ng-if="accessToken">
     with access token {{ accessToken }}
 </div>
-{%- endraw %}

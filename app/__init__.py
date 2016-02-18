@@ -13,9 +13,9 @@ def client(path=None):
     return render_template('index.html')
 
 
-@app.route('/client/views/<string:path>')
-def client_views(path):
-    return render_template(os.path.join('views', path + '.html'))
+# @app.route('/client/views/<string:path>')
+# def client_views(path):
+#     return render_template(os.path.join('views', path + '.html'))
 
 
 if __name__ == '__main__':

@@ -21,22 +21,22 @@ angular
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/main',
+                templateUrl: '/static/views/main.html',
                 controller: 'MainCtrl',
                 controllerAs: 'main'
             })
             .when('/about', {
-                templateUrl: 'views/about',
+                templateUrl: '/static/views/about.html',
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
             })
             .when('/todo', {
-                templateUrl: 'views/todo',
+                templateUrl: '/static/views/todo.html',
                 controller: 'TodoCtrl',
                 controllerAs: 'todoList'
             })
             .when('/auth', {
-                templateUrl: 'views/auth',
+                templateUrl: '/static/views/auth.html',
                 controller: 'AuthCtrl',
                 controllerAs: 'auth'
             })
