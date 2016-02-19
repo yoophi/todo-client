@@ -8,32 +8,40 @@
  * Service in the todoApp.
  */
 angular.module('todoApp')
-    .service('TodoService', function ($http, Storage) {
+    .service('TodoService', function ($http, Storage, AccessToken) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var service = this;
 
         var storage_token = Storage.get('token');
+        var access_token = storage_token.access_token;
         if (storage_token) {
-            console.log(storage_token.access_token);
+            console.log(access_token);
         }
 
         service.todos = [
-            {text: 'learn angular', done: true},
-            {text: 'build an angular app', done: false},
-            {text: 'foo', done: false},
-            {text: 'bar', done: true}
         ];
 
-        service.getList = function () {
-            $http.get('http://localhost:5000/api/v1.0/todos').success(function (response) {
-                console.log(response.todos);
+        service.all = function () {
+            var promise = $http.get('http://localhost:5000/api/v1.0/todos',
+                {headers: headers()}
+            );
+            promise.success(function (response) {
+                console.log(response);
+                service.todos = response.todos;
             });
-            return service.todos;
-
+            return promise;
         };
 
         service.create = function (obj) {
-            service.todos.push(obj);
+            var promise = $http.post('http://localhost:5000/api/v1.0/todos',
+                obj,
+                {headers: headers()}
+            );
+            promise.success(function (response) {
+                console.log(response);
+                service.todos = response.todos;
+            });
+            return promise;
         };
 
         service.getRemaining = function () {
@@ -49,38 +57,37 @@ angular.module('todoApp')
             var old_todos = service.todos;
             service.todos = [];
             angular.forEach(old_todos, function (todo) {
-                if (!todo.done) {
+                if (!todo.is_completed) {
                     service.todos.push(todo);
                 }
             });
+
+            return service.todos;
+        };
+
+        service.update = function (obj) {
+            console.log('service.update()')
+            console.log('headers', headers())
+            var promise = $http.put('http://localhost:5000/api/v1.0/todo/' + obj.id,
+                {
+                    'title': obj['title'],
+                    'priority': obj['priority'],
+                    'is_completed': obj['is_completed']
+                },
+                {headers: headers()}
+            );
+            promise.success(function (response) {
+                console.log(response);
+            });
+            return promise;
+        };
+
+        var headers = function () {
+            if (access_token) {
+                return {Authorization: 'Bearer ' + access_token};
+            }
+
+            return {};
         };
     });
 
-//profileClient.factory('Profile', ['$http', 'AccessToken', '$rootScope', function($http, AccessToken, $rootScope) {
-//  var service = {};
-//  var profile;
-//
-//  service.find = function(uri) {
-//    var promise = $http.get(uri, { headers: headers() });
-//    promise.success(function(response) {
-//        profile = response;
-//        $rootScope.$broadcast('oauth:profile', profile);
-//      });
-//    return promise;
-//  };
-//
-//  service.get = function() {
-//    return profile;
-//  };
-//
-//  service.set = function(resource) {
-//    profile = resource;
-//    return profile;
-//  };
-//
-//  var headers = function() {
-//    return { Authorization: 'Bearer ' + AccessToken.get().access_token };
-//  };
-//
-//  return service;
-//}]);
