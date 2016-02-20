@@ -8,7 +8,7 @@
  * Service in the todoApp.
  */
 angular.module('todoApp')
-    .service('TodoService', function ($http, Storage, AccessToken) {
+    .service('TodoService', function ($http, Storage, AccessToken, EndpointConfigService) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var service = this;
 
@@ -22,7 +22,7 @@ angular.module('todoApp')
         ];
 
         service.all = function () {
-            var promise = $http.get('http://localhost:5000/api/v1.0/todos',
+            var promise = $http.get(EndpointConfigService.getUrl('/todos'),
                 {headers: headers()}
             );
             promise.success(function (response) {
@@ -33,7 +33,7 @@ angular.module('todoApp')
         };
 
         service.create = function (obj) {
-            var promise = $http.post('http://localhost:5000/api/v1.0/todos',
+            var promise = $http.post(EndpointConfigService.getUrl('/todos'),
                 obj,
                 {headers: headers()}
             );
@@ -68,7 +68,7 @@ angular.module('todoApp')
         service.update = function (obj) {
             console.log('service.update()')
             console.log('headers', headers())
-            var promise = $http.put('http://localhost:5000/api/v1.0/todo/' + obj.id,
+            var promise = $http.put(EndpointConfigService.getUrl('/todo/' + obj.id),
                 {
                     'title': obj['title'],
                     'priority': obj['priority'],
@@ -90,4 +90,5 @@ angular.module('todoApp')
             return {};
         };
     });
+
 

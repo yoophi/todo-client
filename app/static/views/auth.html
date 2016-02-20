@@ -1,9 +1,9 @@
 <p>This is the auth view.</p>
 
-<oauth site="http://localhost:5000/api/v1.0"
+<oauth site="{{ auth.site }}"
        client-id="foo"
        redirect-uri="http://localhost:9001/client/auth"
-       profile-uri="http://localhost:5000/api/v1.0/me"
+       profile-uri="{{ auth.profile_url }}"
        scope="email"
        template="/static/views/oauth/default.html"
 >
