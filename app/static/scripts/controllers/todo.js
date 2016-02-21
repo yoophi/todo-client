@@ -36,8 +36,9 @@ angular.module('todoApp')
         };
 
         todoList.archive = function () {
-            todoList.todos = TodoService.archive();
-            //todoList.getTodos();
+            todoList.todos = TodoService.archive().then(function (result){
+                todoList.todos = result.data.todos;
+            });
         };
 
         todoList.updateTodo = function (obj) {

@@ -18,8 +18,7 @@ angular.module('todoApp')
             console.log(access_token);
         }
 
-        service.todos = [
-        ];
+        service.todos = [];
 
         service.all = function () {
             var promise = $http.get(EndpointConfigService.getUrl('/todos'),
@@ -53,21 +52,31 @@ angular.module('todoApp')
             return count;
         };
 
+        service.remove = function (obj) {
+            console.log('service.remove');
+            var promise = $http.delete(EndpointConfigService.getUrl('/todo/' + obj.id),
+                {headers: headers()}
+            );
+            promise.success(function (response) {
+                console.log(response);
+                service.todos = response.todos;
+            });
+            return promise;
+        };
+
         service.archive = function () {
-            var old_todos = service.todos;
-            service.todos = [];
-            angular.forEach(old_todos, function (todo) {
-                if (!todo.is_completed) {
-                    service.todos.push(todo);
+            angular.forEach(service.todos, function (todo) {
+                if (todo.is_completed) {
+                    service.remove(todo).success(function (res) {
+                        console.log(res);
+                    });
                 }
             });
 
-            return service.todos;
+            return service.all();
         };
 
         service.update = function (obj) {
-            console.log('service.update()')
-            console.log('headers', headers())
             var promise = $http.put(EndpointConfigService.getUrl('/todo/' + obj.id),
                 {
                     'title': obj['title'],
