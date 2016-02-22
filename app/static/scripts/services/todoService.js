@@ -8,14 +8,13 @@
  * Service in the todoApp.
  */
 angular.module('todoApp')
-    .service('TodoService', function ($http, Storage, AccessToken, EndpointConfigService) {
-        // AngularJS will instantiate a singleton by calling "new" on this function
+    .service('TodoService', function ($http, $location, Storage, AccessToken, EndpointConfigService) {
         var service = this;
-
+        var access_token;
         var storage_token = Storage.get('token');
-        var access_token = storage_token.access_token;
+
         if (storage_token) {
-            console.log(access_token);
+            access_token = storage_token.access_token;
         }
 
         service.todos = [];
@@ -27,6 +26,10 @@ angular.module('todoApp')
             promise.success(function (response) {
                 console.log(response);
                 service.todos = response.todos;
+            });
+            promise.error(function (response) {
+                alert(response.message);
+                $location.path('/auth');
             });
             return promise;
         };
@@ -53,7 +56,6 @@ angular.module('todoApp')
         };
 
         service.remove = function (obj) {
-            console.log('service.remove');
             var promise = $http.delete(EndpointConfigService.getUrl('/todo/' + obj.id),
                 {headers: headers()}
             );

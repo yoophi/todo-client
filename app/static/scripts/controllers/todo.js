@@ -12,12 +12,9 @@ angular.module('todoApp')
         var todoList = this;
         todoList.todos = [];
 
-
         todoList.getTodos = function () {
             TodoService.all().then(function (result) {
-                console.log(result);
                 todoList.todos = result.data.todos;
-                console.log(todoList.todos);
             })
         };
 
