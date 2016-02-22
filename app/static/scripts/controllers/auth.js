@@ -17,6 +17,11 @@ angular.module('todoApp')
             $scope.accessToken = storage_token.access_token;
         }
 
+        $scope.$on('oauth:expired', function (event) {
+            $rootScope.accessToken = null;
+            $scope.accessToken = null;
+        });
+
         $scope.$on('oauth:login', function (event, token) {
             $rootScope.accessToken = token.access_token;
             $scope.accessToken = token.access_token;

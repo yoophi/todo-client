@@ -27,10 +27,6 @@ angular.module('todoApp')
                 console.log(response);
                 service.todos = response.todos;
             });
-            promise.error(function (response) {
-                alert(response.message);
-                $location.path('/auth');
-            });
             return promise;
         };
 

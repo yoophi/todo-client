@@ -18,7 +18,7 @@ angular
         'ngSanitize',
         'ngTouch'
     ])
-    .config(function ($routeProvider, $locationProvider) {
+    .config(function ($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: '/static/views/main.html',
@@ -49,4 +49,5 @@ angular
             requireBase: false
         });
 
+        $httpProvider.interceptors.push('OAuth2HttpInterceptor');
     });
